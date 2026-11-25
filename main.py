@@ -37,6 +37,8 @@ def main():
         on_disk = f.read()
     if on_disk != line:
         raise RuntimeError("entry.txt did not round-trip byte for byte")
+    if on_disk.endswith("\n") or on_disk.endswith("\r"):
+        raise RuntimeError("entry.txt must hold exactly the line, no trailing newline")
     # Check the gate against what is actually on disk, not the in-memory
     # line: the file the judge reads is what has to pass.
     _check_gate(on_disk)
